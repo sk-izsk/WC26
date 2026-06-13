@@ -13,7 +13,7 @@ struct MatchListView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.top, 60)
         } else {
-            VStack(spacing: 0) {
+            LazyVStack(spacing: 0) {
                 if let teamFilter = viewModel.selectedTeamFilterID {
                     let team = viewModel.teamSummary(for: teamFilter)
                     HStack(spacing: 10) {
@@ -50,27 +50,29 @@ struct MatchListView: View {
                 }
 
                 ForEach(viewModel.matchesByDate, id: \.dateKey) { group in
-                    HStack(spacing: 8) {
-                        Rectangle()
-                            .fill(Color.borderColor)
-                            .frame(height: 1)
-                        Text(dateHeaderLabel(group.dateKey))
-                            .font(.system(size: 11))
-                            .foregroundColor(.textSecondary)
-                            .fixedSize()
-                        Rectangle()
-                            .fill(Color.borderColor)
-                            .frame(height: 1)
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 10)
-
-                    VStack(spacing: 8) {
-                        ForEach(group.matches) { match in
-                            MatchCard(match: match)
+                    VStack(spacing: 0) {
+                        HStack(spacing: 8) {
+                            Rectangle()
+                                .fill(Color.borderColor)
+                                .frame(height: 1)
+                            Text(dateHeaderLabel(group.dateKey))
+                                .font(.system(size: 11))
+                                .foregroundColor(.textSecondary)
+                                .fixedSize()
+                            Rectangle()
+                                .fill(Color.borderColor)
+                                .frame(height: 1)
                         }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+
+                        LazyVStack(spacing: 8) {
+                            ForEach(group.matches) { match in
+                                MatchCard(match: match)
+                            }
+                        }
+                        .padding(.horizontal, 12)
                     }
-                    .padding(.horizontal, 12)
                 }
             }
             .padding(.bottom, 12)

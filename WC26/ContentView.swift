@@ -18,8 +18,8 @@ struct ContentView: View {
                 TabBarView()
 
                 ScrollView(.vertical, showsIndicators: false) {
-                    if viewModel.activeTab == .fixtures {
-                        VStack(spacing: 0) {
+                    LazyVStack(spacing: 0) {
+                        if viewModel.activeTab == .fixtures {
                             DateStripView()
 
                             if viewModel.isLoading && viewModel.matches.isEmpty {
@@ -31,9 +31,7 @@ struct ContentView: View {
                             } else {
                                 MatchListView()
                             }
-                        }
-                    } else {
-                        VStack(spacing: 0) {
+                        } else {
                             GroupSelectorView()
 
                             if viewModel.isLoading && viewModel.standings.isEmpty {
@@ -50,11 +48,12 @@ struct ContentView: View {
                 }
             }
             if let sheet = viewModel.activeSheet {
-                Color.black.opacity(0.32)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        viewModel.dismissActiveSheet()
-                    }
+                Button(action: viewModel.dismissActiveSheet) {
+                    Color.black.opacity(0.32)
+                        .ignoresSafeArea()
+                }
+                .buttonStyle(.plain)
+                .accessibilityHidden(true)
 
                 modalView(for: sheet)
                     .transition(.opacity.combined(with: .scale(scale: 0.98)))

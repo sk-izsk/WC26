@@ -1,6 +1,49 @@
 import Foundation
 import SwiftUI
 
+private enum WCFormatters {
+    static let dateKey: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = .current
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+
+    static let friendlyDate: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = .current
+        formatter.dateFormat = "EEE, MMM d"
+        return formatter
+    }()
+
+    static let dateStrip: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = .current
+        formatter.dateFormat = "EEE d"
+        return formatter
+    }()
+
+    static let kickoffTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = .current
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
+
+    static let kickoffFull: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = .current
+        formatter.dateFormat = "EEE, MMM d · HH:mm"
+        return formatter
+    }()
+}
+
 extension Color {
     static let bgBase = Color(red: 17 / 255, green: 17 / 255, blue: 20 / 255)
     static let bgCard = Color(red: 28 / 255, green: 28 / 255, blue: 32 / 255)
@@ -22,21 +65,11 @@ extension Color {
 
 extension Date {
     func toDateKey() -> String {
-        let formatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .gregorian)
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = .current
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: self)
+        WCFormatters.dateKey.string(from: self)
     }
 
     static func fromDateKey(_ key: String) -> Date? {
-        let formatter = DateFormatter()
-        formatter.calendar = Calendar(identifier: .gregorian)
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = .current
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.date(from: key)
+        WCFormatters.dateKey.date(from: key)
     }
 
     static func dateKey(offsetDays: Int) -> String {
@@ -45,11 +78,19 @@ extension Date {
     }
 
     func friendlyDisplay() -> String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = .current
-        formatter.dateFormat = "EEE, MMM d"
-        return formatter.string(from: self)
+        WCFormatters.friendlyDate.string(from: self)
+    }
+
+    func dateStripPillLabel() -> String {
+        WCFormatters.dateStrip.string(from: self)
+    }
+
+    static func matchTimeString(_ date: Date) -> String {
+        WCFormatters.kickoffTime.string(from: date)
+    }
+
+    static func matchFullKickoffString(_ date: Date) -> String {
+        WCFormatters.kickoffFull.string(from: date)
     }
 
     static func parseMatchDate(_ rawValue: String, in timeZone: TimeZone) -> Date? {

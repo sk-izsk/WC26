@@ -1,13 +1,10 @@
-import Combine
 import SwiftUI
 
 struct HeaderView: View {
     @EnvironmentObject private var viewModel: AppViewModel
-    @State private var now = Date()
     @State private var isSearchExpanded = false
+    @State private var focusTask: Task<Void, Never>?
     @FocusState private var isSearchFieldFocused: Bool
-
-    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
         VStack(spacing: 10) {
@@ -73,11 +70,7 @@ struct HeaderView: View {
                     }
                     .buttonStyle(.plain)
 
-                    if let lastUpdated = viewModel.lastUpdated {
-                        Text(relativeTime(from: lastUpdated, now: now))
-                            .font(.system(size: 11))
-                            .foregroundColor(.textSecondary)
-                    }
+                    LastUpdatedLabel(lastUpdated: viewModel.lastUpdated)
 
                     Button(action: viewModel.refresh) {
                         Text("↻")
@@ -219,30 +212,20 @@ struct HeaderView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .background(Color.white.opacity(0.03))
-        .onReceive(timer) { value in
-            now = value
-        }
         .onChange(of: isSearchExpanded) { expanded in
+            focusTask?.cancel()
             if expanded {
-                Task { @MainActor in
+                focusTask = Task { @MainActor in
                     try? await Task.sleep(nanoseconds: 120_000_000)
-                    isSearchFieldFocused = true
+                    guard !Task.isCancelled else {
+                        return
+                    }
+                    isSearchFieldFocused = isSearchExpanded
                 }
             } else {
                 isSearchFieldFocused = false
             }
         }
-    }
-
-    private func relativeTime(from date: Date, now: Date) -> String {
-        let seconds = Int(now.timeIntervalSince(date))
-        if seconds < 10 {
-            return "just now"
-        }
-        if seconds < 60 {
-            return "\(seconds)s ago"
-        }
-        return "\(seconds / 60)m ago"
     }
 
     private var todayResetEnabled: Bool {

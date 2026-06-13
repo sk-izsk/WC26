@@ -257,7 +257,7 @@ struct APIStandingTeam: Decodable {
     }
 }
 
-struct Match: Identifiable {
+struct Match: Identifiable, Equatable {
     let id: String
     let matchNumber: Int
     let round: String
@@ -320,7 +320,7 @@ struct Match: Identifiable {
     }
 }
 
-struct StandingRow: Identifiable {
+struct StandingRow: Identifiable, Equatable {
     let teamID: String
     let position: Int
     let team: String
@@ -337,7 +337,7 @@ struct StandingRow: Identifiable {
     var id: String { team }
 }
 
-struct GroupStanding: Identifiable {
+struct GroupStanding: Identifiable, Equatable {
     let group: String
     let standings: [StandingRow]
 

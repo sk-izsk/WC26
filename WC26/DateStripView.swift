@@ -94,10 +94,7 @@ struct DateStripView: View {
             return dateKey
         }
 
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "EEE d"
-        return formatter.string(from: date)
+        return date.dateStripPillLabel()
     }
 
     private var selectedIndex: Int? {

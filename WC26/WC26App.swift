@@ -2,13 +2,13 @@ import SwiftUI
 
 @main
 struct WC26App: App {
-    @StateObject private var viewModel = AppViewModel()
+    @StateObject private var viewModel: AppViewModel
 
     init() {
         let viewModel = AppViewModel()
-        _viewModel = StateObject(wrappedValue: viewModel)
         viewModel.startPolling()
         viewModel.refresh()
+        _viewModel = StateObject(wrappedValue: viewModel)
     }
 
     var body: some Scene {
