@@ -5,13 +5,20 @@ struct MatchListView: View {
 
     var body: some View {
         if viewModel.matches.isEmpty && !viewModel.isLoading {
-            VStack(spacing: 8) {
-                Text(emptyStateTitle)
-                    .font(.system(size: 13))
+            VStack(spacing: 10) {
+                Image(systemName: "soccerball")
+                    .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.textSecondary)
+                Text("No Matches")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.textPrimary)
+                Text(emptyStateTitle)
+                    .font(.system(size: 12))
+                    .foregroundColor(.textSecondary)
+                    .multilineTextAlignment(.center)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding(.top, 60)
+            .padding(.top, 48)
         } else {
             LazyVStack(spacing: 0) {
                 if let teamFilter = viewModel.selectedTeamFilterID {
@@ -29,8 +36,11 @@ struct MatchListView: View {
                         .font(.system(size: 11, weight: .semibold))
                         .foregroundColor(.textSecondary)
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 10)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 10)
+                    .glassPanel(cornerRadius: 14, opacity: viewModel.cardOpacity * 0.64)
+                    .padding(.horizontal, 12)
+                    .padding(.top, 8)
                     .padding(.bottom, 4)
                 }
 
@@ -46,25 +56,25 @@ struct MatchListView: View {
                     }
                     .padding(.horizontal, 16)
                     .padding(.top, 10)
-                    .padding(.bottom, 2)
+                    .padding(.bottom, 4)
                 }
 
                 ForEach(viewModel.matchesByDate, id: \.dateKey) { group in
                     VStack(spacing: 0) {
-                        HStack(spacing: 8) {
-                            Rectangle()
-                                .fill(Color.borderColor)
-                                .frame(height: 1)
-                            Text(dateHeaderLabel(group.dateKey))
-                                .font(.system(size: 11))
-                                .foregroundColor(.textSecondary)
-                                .fixedSize()
-                            Rectangle()
-                                .fill(Color.borderColor)
-                                .frame(height: 1)
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(dateHeaderLabel(group.dateKey))
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundColor(.textPrimary)
+                                Text("\(group.matches.count) matches")
+                                    .font(.system(size: 10))
+                                    .foregroundColor(.textSecondary)
+                            }
+                            Spacer()
                         }
                         .padding(.horizontal, 16)
-                        .padding(.vertical, 10)
+                        .padding(.top, 12)
+                        .padding(.bottom, 8)
 
                         LazyVStack(spacing: 8) {
                             ForEach(group.matches) { match in
@@ -88,8 +98,8 @@ struct MatchListView: View {
 
     private var emptyStateTitle: String {
         if let team = viewModel.selectedTeamFilterSummary {
-            return "No confirmed matches available for \(team.name)"
+            return "No confirmed matches available for \(team.name)."
         }
-        return "No matches on this date"
+        return "No matches are scheduled on this date."
     }
 }

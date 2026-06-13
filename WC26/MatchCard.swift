@@ -7,6 +7,9 @@ struct MatchCard: View {
     private var isLive: Bool { match.status.isLive }
     private var isFinished: Bool { match.status == .finished }
     private var hasFavoriteTeam: Bool { match.involvesFavoriteTeam(viewModel.favoriteTeamIDs) }
+    private var notificationEligibility: NotificationEligibility {
+        viewModel.notificationEligibility(for: match)
+    }
 
     var body: some View {
         Button {
@@ -26,18 +29,22 @@ struct MatchCard: View {
 
                     Spacer()
 
-                    HStack(spacing: 6) {
-                        Text(match.city.isEmpty ? match.stadium : "\(match.stadium) · \(match.city)")
-                            .font(.system(size: 11))
-                            .foregroundColor(.textSecondary)
-                            .lineLimit(1)
-                            .truncationMode(.tail)
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 10, weight: .semibold))
-                            .foregroundColor(.textSecondary.opacity(0.8))
+                    HStack(spacing: 10) {
+                        if notificationEligibility.isEnabled {
+                            notificationBadge
+                        }
+
+                        VStack(alignment: .trailing, spacing: 3) {
+                            Text(match.compactStatusLabel)
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundColor(isLive ? .accentLive : .textSecondary)
+                            Text(match.kickoffFullLabel)
+                                .font(.system(size: 10))
+                                .foregroundColor(.textSecondary)
+                        }
                     }
                 }
-                .padding(.bottom, 8)
+                .padding(.bottom, 10)
 
                 HStack(spacing: 8) {
                     RemoteFlagView(url: match.homeFlagURL, size: 28)
@@ -78,8 +85,27 @@ struct MatchCard: View {
                         .foregroundColor(isFinished ? .textSecondary : .textPrimary)
                         .frame(minWidth: 30, alignment: .trailing)
                 }
+
+                HStack(spacing: 8) {
+                    Label(match.venueLine, systemImage: "mappin.and.ellipse")
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(.textSecondary)
+                        .lineLimit(1)
+
+                    Spacer()
+
+                    HStack(spacing: 5) {
+                        Text(match.roundLabel)
+                            .font(.system(size: 10, weight: .semibold))
+                            .foregroundColor(.textSecondary)
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 9, weight: .bold))
+                            .foregroundColor(.textSecondary.opacity(0.8))
+                    }
+                }
+                .padding(.top, 10)
             }
-            .padding(12)
+            .padding(14)
             .contentShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
         }
         .buttonStyle(.plain)
@@ -103,7 +129,28 @@ struct MatchCard: View {
     }
 
     private var matchCardOpacity: Double {
-        0.30
+        isLive ? 0.34 : 0.28
+    }
+
+    private var notificationBadge: some View {
+        HStack(spacing: 5) {
+            Image(systemName: "bell.badge.fill")
+                .font(.system(size: 10, weight: .bold))
+            if let sourceLabel = notificationEligibility.sourceLabel {
+                Text(sourceLabel)
+                    .font(.system(size: 9, weight: .bold))
+                    .lineLimit(1)
+            }
+        }
+        .foregroundColor(.textPrimary)
+        .padding(.horizontal, 8)
+        .padding(.vertical, 4)
+        .background(Color.liquidHighlight.opacity(0.18), in: Capsule())
+        .overlay(
+            Capsule()
+                .stroke(Color.liquidHighlight.opacity(0.32), lineWidth: 1)
+        )
+        .accessibilityLabel("Notifications enabled")
     }
 
     @ViewBuilder

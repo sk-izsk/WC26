@@ -7,25 +7,32 @@ struct HeaderView: View {
     @FocusState private var isSearchFieldFocused: Bool
 
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 12) {
             HStack {
-                HStack(spacing: 6) {
+                HStack(spacing: 10) {
                     ZStack {
-                        Circle()
+                        RoundedRectangle(cornerRadius: 10)
                             .fill(
                                 LinearGradient(
-                                    colors: [Color.white.opacity(0.26), Color.white.opacity(0.08)],
+                                    colors: [Color.liquidHighlight.opacity(0.28), Color.white.opacity(0.08)],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
                             )
-                        Text("⚽")
-                            .font(.system(size: 14))
+                        Image(systemName: "soccerball")
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundColor(.textPrimary)
                     }
-                    .frame(width: 24, height: 24)
-                    Text("World Cup 2026")
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundColor(.textPrimary)
+                    .frame(width: 28, height: 28)
+
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("World Cup 2026")
+                            .font(.system(size: 14, weight: .semibold, design: .rounded))
+                            .foregroundColor(.textPrimary)
+                        Text("Live fixtures and standings")
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundColor(.textSecondary)
+                    }
                 }
 
                 Spacer()
@@ -41,9 +48,9 @@ struct HeaderView: View {
                     } label: {
                         Image(systemName: isSearchExpanded ? "xmark" : "magnifyingglass")
                             .font(.system(size: 13, weight: .semibold))
-                            .foregroundColor(.textSecondary)
-                            .frame(width: 22, height: 22)
-                            .background(Color.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+                            .foregroundColor(isSearchExpanded ? .textPrimary : .textSecondary)
+                            .frame(width: 28, height: 28)
+                            .chromeButtonBackground(isActive: isSearchExpanded)
                     }
                     .buttonStyle(.plain)
 
@@ -52,9 +59,9 @@ struct HeaderView: View {
                     } label: {
                         Image(systemName: "scope")
                             .font(.system(size: 12, weight: .semibold))
-                        .foregroundColor(todayResetActive ? .textPrimary : .textSecondary)
-                        .frame(width: 22, height: 22)
-                        .background(todayResetBackground, in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+                            .foregroundColor(todayResetActive ? .textPrimary : .textSecondary)
+                            .frame(width: 28, height: 28)
+                            .chromeButtonBackground(isActive: todayResetActive)
                     }
                     .buttonStyle(.plain)
                     .disabled(!todayResetEnabled)
@@ -65,8 +72,8 @@ struct HeaderView: View {
                         Image(systemName: "gearshape")
                             .font(.system(size: 13))
                             .foregroundColor(.textSecondary)
-                            .frame(width: 22, height: 22)
-                            .background(Color.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+                            .frame(width: 28, height: 28)
+                            .chromeButtonBackground()
                     }
                     .buttonStyle(.plain)
 
@@ -76,8 +83,8 @@ struct HeaderView: View {
                         Text("↻")
                             .font(.system(size: 15))
                             .foregroundColor(.textSecondary)
-                            .frame(width: 22, height: 22)
-                            .background(Color.white.opacity(0.08), in: RoundedRectangle(cornerRadius: 7, style: .continuous))
+                            .frame(width: 28, height: 28)
+                            .chromeButtonBackground()
                             .rotationEffect(viewModel.isLoading ? .degrees(360) : .zero)
                             .animation(
                                 viewModel.isLoading
@@ -88,6 +95,8 @@ struct HeaderView: View {
                     }
                     .buttonStyle(.plain)
                 }
+                .padding(6)
+                .glassPanel(cornerRadius: 14, opacity: viewModel.cardOpacity * 0.72)
             }
 
             if let team = viewModel.selectedTeamFilterSummary {
@@ -97,8 +106,8 @@ struct HeaderView: View {
                     } label: {
                         HStack(spacing: 8) {
                             RemoteFlagView(url: team.flagURL, size: 18)
-                            Text("Focused: \(team.name)")
-                                .font(.system(size: 11, weight: .medium))
+                            Text("Focused on \(team.name)")
+                                .font(.system(size: 11, weight: .semibold))
                                 .foregroundColor(.textPrimary)
                                 .lineLimit(1)
                             Spacer()
@@ -117,14 +126,7 @@ struct HeaderView: View {
                 }
                 .padding(.horizontal, 10)
                 .padding(.vertical, 8)
-                .background(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .fill(Color.white.opacity(0.08))
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .stroke(Color.glassStroke, lineWidth: 1)
-                )
+                .glassPanel(cornerRadius: 14, opacity: viewModel.cardOpacity * 0.7)
             }
 
             if isSearchExpanded || !viewModel.teamSearchText.isEmpty {
@@ -158,18 +160,11 @@ struct HeaderView: View {
                                     .foregroundColor(.textSecondary)
                             }
                             .buttonStyle(.plain)
-                        }
+                            }
                     }
                     .padding(.horizontal, 10)
                     .padding(.vertical, 8)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .fill(Color.white.opacity(0.08))
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .stroke(Color.glassStroke, lineWidth: 1)
-                    )
+                    .glassPanel(cornerRadius: 14, opacity: viewModel.cardOpacity * 0.72)
 
                     if !viewModel.teamSearchResults.isEmpty {
                         VStack(spacing: 6) {
@@ -194,13 +189,14 @@ struct HeaderView: View {
                                                     .frame(maxWidth: .infinity, alignment: .leading)
                                             }
                                         }
+                                        Spacer()
+                                        Image(systemName: "arrow.up.right")
+                                            .font(.system(size: 10, weight: .bold))
+                                            .foregroundColor(.textSecondary)
                                     }
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 8)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                            .fill(Color.white.opacity(0.05))
-                                    )
+                                    .glassPanel(cornerRadius: 12, opacity: viewModel.cardOpacity * 0.62)
                                 }
                                 .buttonStyle(.plain)
                             }
@@ -211,7 +207,13 @@ struct HeaderView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .background(Color.white.opacity(0.03))
+        .background(
+            LinearGradient(
+                colors: [Color.white.opacity(0.05), Color.clear],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
         .onChange(of: isSearchExpanded) { expanded in
             focusTask?.cancel()
             if expanded {
@@ -234,12 +236,5 @@ struct HeaderView: View {
 
     private var todayResetActive: Bool {
         todayResetEnabled
-    }
-
-    private var todayResetBackground: Color {
-        if todayResetActive {
-            return Color.liquidHighlight.opacity(0.26)
-        }
-        return Color.white.opacity(0.08)
     }
 }

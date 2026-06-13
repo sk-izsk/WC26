@@ -13,21 +13,14 @@ struct DateStripView: View {
                             .font(.system(size: 12, weight: .semibold))
                             .foregroundColor(.textPrimary)
                         Text("Showing every confirmed match across all dates")
-                            .font(.system(size: 10))
+                            .font(.system(size: 11))
                             .foregroundColor(.textSecondary)
                     }
                     Spacer()
                 }
                 .padding(.horizontal, 14)
                 .padding(.vertical, 8)
-                .background(
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .fill(Color.white.opacity(0.07))
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .stroke(Color.glassStroke, lineWidth: 1)
-                )
+                .glassPanel(cornerRadius: 14, opacity: viewModel.cardOpacity * 0.68)
                 .padding(.horizontal, 12)
             } else {
                 HStack(spacing: 8) {
@@ -46,14 +39,14 @@ struct DateStripView: View {
                                             .font(.system(size: 12, weight: viewModel.selectedDate == dateKey ? .semibold : .regular))
                                             .foregroundColor(viewModel.selectedDate == dateKey ? .textPrimary : .textSecondary)
                                             .padding(.horizontal, 12)
-                                            .padding(.vertical, 6)
+                                            .padding(.vertical, 7)
                                             .background(
                                                 Capsule()
-                                                    .fill(viewModel.selectedDate == dateKey ? Color.white.opacity(0.18) : Color.white.opacity(0.08))
+                                                    .fill(viewModel.selectedDate == dateKey ? Color.liquidHighlight.opacity(0.18) : Color.white.opacity(0.06))
                                             )
                                             .overlay(
                                                 Capsule()
-                                                    .stroke(viewModel.selectedDate == dateKey ? Color.white.opacity(0.28) : Color.glassStroke, lineWidth: 1)
+                                                    .stroke(viewModel.selectedDate == dateKey ? Color.liquidHighlight.opacity(0.32) : Color.glassStroke, lineWidth: 1)
                                             )
                                     }
                                     .buttonStyle(.plain)
@@ -75,10 +68,13 @@ struct DateStripView: View {
                         moveSelection(1)
                     }
                 }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 8)
+                .glassPanel(cornerRadius: 16, opacity: viewModel.cardOpacity * 0.66)
+                .padding(.horizontal, 12)
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
+        .padding(.vertical, 6)
     }
 
     private func pillLabel(for dateKey: String) -> String {
@@ -122,7 +118,7 @@ struct DateStripView: View {
             Image(systemName: systemName)
                 .font(.system(size: 10, weight: .bold))
                 .foregroundColor(enabled ? .textPrimary : .textSecondary.opacity(0.45))
-                .frame(width: 22, height: 22)
+                .frame(width: 28, height: 28)
                 .background(Color.white.opacity(enabled ? 0.08 : 0.03), in: Circle())
         }
         .buttonStyle(.plain)

@@ -58,9 +58,19 @@ extension Color {
     static let textTime = Color(red: 156 / 255, green: 163 / 255, blue: 175 / 255)
     static let liquidHighlight = Color(red: 120 / 255, green: 180 / 255, blue: 255 / 255)
     static let liquidGlow = Color(red: 68 / 255, green: 130 / 255, blue: 255 / 255)
+    static let championshipGold = Color(red: 251 / 255, green: 191 / 255, blue: 36 / 255)
+    static let panelMist = Color.white.opacity(0.08)
     static let glassStroke = Color.white.opacity(0.18)
     static let glassTop = Color.white.opacity(0.18)
     static let glassBottom = Color.black.opacity(0.24)
+}
+
+enum WCChrome {
+    static let cornerRadius: CGFloat = 18
+    static let controlRadius: CGFloat = 12
+    static let compactControlRadius: CGFloat = 10
+    static let horizontalPadding: CGFloat = 12
+    static let cardPadding: CGFloat = 14
 }
 
 extension Date {
@@ -164,5 +174,33 @@ extension View {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                     .strokeBorder(Color.glassStroke.opacity(opacity + 0.1), lineWidth: 1)
             )
+    }
+
+    func chromeButtonBackground(isActive: Bool = false, cornerRadius: CGFloat = WCChrome.compactControlRadius) -> some View {
+        self
+            .background(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(isActive ? Color.liquidHighlight.opacity(0.18) : Color.white.opacity(0.07))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .stroke(isActive ? Color.liquidHighlight.opacity(0.34) : Color.glassStroke, lineWidth: 1)
+            )
+    }
+
+    @ViewBuilder
+    func adaptiveGlass(in shape: RoundedRectangle = RoundedRectangle(cornerRadius: WCChrome.cornerRadius), opacity: Double) -> some View {
+        if #available(macOS 26, *) {
+            self
+                .padding(0)
+                .background(Color.clear)
+                .glassEffect(.regular.tint(.white.opacity(0.04)), in: shape)
+                .overlay(
+                    shape
+                        .stroke(Color.white.opacity(0.14), lineWidth: 1)
+                )
+        } else {
+            self.glassPanel(cornerRadius: WCChrome.cornerRadius, opacity: opacity)
+        }
     }
 }
