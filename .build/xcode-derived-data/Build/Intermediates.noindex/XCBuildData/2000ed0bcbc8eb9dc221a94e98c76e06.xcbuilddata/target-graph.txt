@@ -1,2 +1,0 @@
-Target dependency graph (1 target)
-Target 'WC26' in project 'WC26' (no dependencies)
