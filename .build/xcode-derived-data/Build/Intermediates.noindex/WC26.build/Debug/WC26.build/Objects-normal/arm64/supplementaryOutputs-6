@@ -1,0 +1,23 @@
+{
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/SettingsView.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/SettingsView.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/SettingsView.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/SettingsView.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/SettingsView.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/SettingsView.swiftdeps"
+  },
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/StandingsView.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/StandingsView.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/StandingsView.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/StandingsView.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/StandingsView.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/StandingsView.swiftdeps"
+  },
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/StatusBadgeView.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/StatusBadgeView.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/StatusBadgeView.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/StatusBadgeView.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/StatusBadgeView.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/StatusBadgeView.swiftdeps"
+  }
+}

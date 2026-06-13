@@ -1,0 +1,68 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "WC26: Build Debug",
+      "type": "shell",
+      "command": "xcodebuild",
+      "args": [
+        "-project",
+        "WC26.xcodeproj",
+        "-scheme",
+        "WC26",
+        "-configuration",
+        "Debug",
+        "-derivedDataPath",
+        "${workspaceFolder}/.build/xcode-derived-data",
+        "build"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "WC26: Build Release",
+      "type": "shell",
+      "command": "xcodebuild",
+      "args": [
+        "-project",
+        "WC26.xcodeproj",
+        "-scheme",
+        "WC26",
+        "-configuration",
+        "Release",
+        "-derivedDataPath",
+        "${workspaceFolder}/.build/xcode-derived-data",
+        "build"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "WC26: Clean",
+      "type": "shell",
+      "command": "xcodebuild",
+      "args": [
+        "-project",
+        "WC26.xcodeproj",
+        "-scheme",
+        "WC26",
+        "-derivedDataPath",
+        "${workspaceFolder}/.build/xcode-derived-data",
+        "clean"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "WC26: Run App",
+      "type": "shell",
+      "command": "open",
+      "args": [
+        "${workspaceFolder}/.build/xcode-derived-data/Build/Products/Debug/WC26.app"
+      ],
+      "dependsOn": "WC26: Build Debug",
+      "problemMatcher": []
+    }
+  ]
+}

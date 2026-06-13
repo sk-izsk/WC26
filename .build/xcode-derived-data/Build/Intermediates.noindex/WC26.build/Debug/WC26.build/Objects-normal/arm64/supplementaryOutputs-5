@@ -1,0 +1,23 @@
+{
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/MatchListView.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/MatchListView.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/MatchListView.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/MatchListView.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/MatchListView.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/MatchListView.swiftdeps"
+  },
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/Models.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/Models.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/Models.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/Models.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/Models.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/Models.swiftdeps"
+  },
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/RemoteFlagView.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/RemoteFlagView.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/RemoteFlagView.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/RemoteFlagView.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/RemoteFlagView.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/RemoteFlagView.swiftdeps"
+  }
+}

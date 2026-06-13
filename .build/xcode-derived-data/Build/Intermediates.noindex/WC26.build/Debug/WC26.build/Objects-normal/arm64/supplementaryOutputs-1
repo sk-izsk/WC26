@@ -1,0 +1,30 @@
+{
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/APIService.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/APIService.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/APIService.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/APIService.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/APIService.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/APIService.swiftdeps"
+  },
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/AppViewModel+Actions.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel+Actions.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel+Actions.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel+Actions.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel+Actions.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel+Actions.swiftdeps"
+  },
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/AppViewModel+Derived.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel+Derived.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel+Derived.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel+Derived.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel+Derived.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel+Derived.swiftdeps"
+  },
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/AppViewModel.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/AppViewModel.swiftdeps"
+  }
+}

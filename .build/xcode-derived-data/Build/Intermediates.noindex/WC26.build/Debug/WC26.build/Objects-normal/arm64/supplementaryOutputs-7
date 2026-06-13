@@ -1,0 +1,23 @@
+{
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/TabBarView.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TabBarView.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TabBarView.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TabBarView.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TabBarView.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TabBarView.swiftdeps"
+  },
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/TeamDetailSections.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TeamDetailSections.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TeamDetailSections.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TeamDetailSections.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TeamDetailSections.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TeamDetailSections.swiftdeps"
+  },
+  "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/TeamDetailView.swift" : {
+    "const-values" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TeamDetailView.swiftconstvalues",
+    "dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TeamDetailView.d",
+    "diagnostics" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TeamDetailView.dia",
+    "object" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TeamDetailView.o",
+    "swift-dependencies" : "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/.build/xcode-derived-data/Build/Intermediates.noindex/WC26.build/Debug/WC26.build/Objects-normal/arm64/TeamDetailView.swiftdeps"
+  }
+}

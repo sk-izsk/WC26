@@ -1,0 +1,7 @@
+.agents/
+.codex/
+skills-lock.json
+*.xcuserstate
+xcuserdata/
+*.xccheckout
+*.xcscmblueprint

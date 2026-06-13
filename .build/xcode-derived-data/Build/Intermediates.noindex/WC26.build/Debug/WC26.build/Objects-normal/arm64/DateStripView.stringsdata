@@ -1,0 +1,24 @@
+{
+  "source": "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/DateStripView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Full %@ schedule",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 12
+        }
+      },
+      {
+        "comment": "",
+        "key": "Showing every confirmed match across all dates",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 15
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,32 @@
+{
+  "source": "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/StandingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "No standings available",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 21
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 69
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 14,
+          "startingLine": 101
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,16 @@
+{
+  "source": "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/GroupSelectorView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Group %@",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 19
+        }
+      }
+    ]
+  },
+  "version": 1
+}

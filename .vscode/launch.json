@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "WC26: Debug App",
+      "type": "lldb-dap",
+      "request": "launch",
+      "program": "${workspaceFolder}/.build/xcode-derived-data/Build/Products/Debug/WC26.app/Contents/MacOS/WC26",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "preLaunchTask": "WC26: Build Debug"
+    }
+  ]
+}

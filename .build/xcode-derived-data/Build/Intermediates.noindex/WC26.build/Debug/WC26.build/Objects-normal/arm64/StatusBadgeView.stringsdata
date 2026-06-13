@@ -1,0 +1,48 @@
+{
+  "source": "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/StatusBadgeView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "HT",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 27
+        }
+      },
+      {
+        "comment": "",
+        "key": "FT",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "LIVE",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "LIVE %lld'",
+        "location": {
+          "startingColumn": 41,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "LIVE",
+        "location": {
+          "startingColumn": 60,
+          "startingLine": 22
+        }
+      }
+    ]
+  },
+  "version": 1
+}

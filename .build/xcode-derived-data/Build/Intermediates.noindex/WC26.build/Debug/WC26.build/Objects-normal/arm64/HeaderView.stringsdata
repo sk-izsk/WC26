@@ -1,0 +1,48 @@
+{
+  "source": "/Volumes/Mac Mini 1tb Ext/Projects/Swift/Mac/WC26/WC26/HeaderView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "World Cup 2026",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "⚽",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 22
+        }
+      },
+      {
+        "comment": "",
+        "key": "↻",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 76
+        }
+      },
+      {
+        "comment": "",
+        "key": "Focused: %@",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 100
+        }
+      },
+      {
+        "comment": "",
+        "key": "Search teams",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 137
+        }
+      }
+    ]
+  },
+  "version": 1
+}
