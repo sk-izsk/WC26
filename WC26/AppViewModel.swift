@@ -3,7 +3,7 @@ import Foundation
 
 @MainActor
 final class AppViewModel: ObservableObject {
-    private enum DefaultsKey {
+    enum DefaultsKey {
         static let pinnedLiveMatchID = "PinnedLiveMatchID"
         static let panelOpacity = "PanelOpacity"
         static let cardOpacity = "CardOpacity"
@@ -11,6 +11,9 @@ final class AppViewModel: ObservableObject {
         static let favoriteTeamIDs = "FavoriteTeamIDs"
         static let trayDisplayMode = "TrayDisplayMode"
         static let selectedTeamFilterID = "SelectedTeamFilterID"
+        static let notificationPreferences = "NotificationPreferences"
+        static let notificationOverrides = "NotificationOverrides"
+        static let notificationsSectionExpanded = "NotificationsSectionExpanded"
     }
 
     enum RefreshInterval: Int, CaseIterable, Identifiable {
@@ -119,10 +122,16 @@ final class AppViewModel: ObservableObject {
     @Published var activeSheet: ActiveSheet?
     @Published var selectedTeamFilterID = UserDefaults.standard.string(forKey: DefaultsKey.selectedTeamFilterID)
     @Published var teamSearchText = ""
+    @Published var notificationPreferences = NotificationPreferences()
+    @Published var notificationPermissionState: NotificationPermissionState = .notRequested
+    @Published var isNotificationsSectionExpanded = UserDefaults.standard.object(forKey: DefaultsKey.notificationsSectionExpanded) as? Bool ?? false
+    @Published var activeBanner: InAppBannerState?
 
     var pollingTask: Task<Void, Never>?
+    var bannerDismissTask: Task<Void, Never>?
     var isFetching = false
     let api = APIService.shared
+    let notificationManager = NotificationManager()
 
     var teamsByID: [String: APITeam] = [:]
     var stadiumsByID: [String: APIStadium] = [:]
@@ -131,11 +140,24 @@ final class AppViewModel: ObservableObject {
     var matchesByDateCache: [(dateKey: String, matches: [Match])] = []
     var liveMatchesCache: [Match] = []
     var favoriteTeamsCache: [FavoriteTeamSummary] = []
+    var notificationOverrides: [String: NotificationFollowMode] = [:]
+    var notificationSnapshotsByMatchID: [String: MatchNotificationSnapshot] = [:]
+    var hasSeededNotificationBaseline = false
 
     let allGroups = Array("ABCDEFGHIJKL").map(String.init)
 
+    init() {
+        notificationPreferences = Self.loadNotificationPreferences()
+        notificationOverrides = Self.loadNotificationOverrides()
+        notificationManager.onBanner = { [weak self] banner in
+            self?.presentInAppBanner(banner)
+        }
+        refreshNotificationPermissionState()
+    }
+
     deinit {
         pollingTask?.cancel()
+        bannerDismissTask?.cancel()
     }
 
     func startPolling() {
@@ -207,6 +229,7 @@ final class AppViewModel: ObservableObject {
                 .map(normalizeStanding)
                 .sorted { $0.group < $1.group }
 
+            processNotificationEvents(with: normalizedMatches)
             allMatches = normalizedMatches
             rebuildGlobalCaches()
 
@@ -241,5 +264,28 @@ final class AppViewModel: ObservableObject {
             return []
         }
         return try await api.fetchStadiums()
+    }
+
+    private static func loadNotificationPreferences() -> NotificationPreferences {
+        guard let data = UserDefaults.standard.data(forKey: DefaultsKey.notificationPreferences),
+              let preferences = try? JSONDecoder().decode(NotificationPreferences.self, from: data) else {
+            return NotificationPreferences()
+        }
+
+        return preferences
+    }
+
+    private static func loadNotificationOverrides() -> [String: NotificationFollowMode] {
+        guard let rawOverrides = UserDefaults.standard.dictionary(forKey: DefaultsKey.notificationOverrides) as? [String: String] else {
+            return [:]
+        }
+
+        return rawOverrides.reduce(into: [:]) { partialResult, entry in
+            guard let mode = NotificationFollowMode(rawValue: entry.value) else {
+                return
+            }
+
+            partialResult[entry.key] = mode
+        }
     }
 }

@@ -6,171 +6,173 @@ struct SettingsView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Pinned Live Match")
-                        .font(.system(size: 15, weight: .semibold))
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Pinned Live Match")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(.textPrimary)
+                        Text("Choose which live score appears in the menu bar.")
+                            .font(.system(size: 11))
+                            .foregroundColor(.textSecondary)
+                    }
+
+                    Spacer()
+
+                    Button("Done") {
+                        viewModel.dismissActiveSheet()
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundColor(.textPrimary)
+                }
+
+                SettingsNotificationSection()
+
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Appearance")
+                        .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(.textPrimary)
-                    Text("Choose which live score appears in the menu bar.")
+
+                    sliderRow(
+                        title: "Panel Transparency",
+                        value: viewModel.panelOpacity,
+                        range: 0.35 ... 0.9
+                    ) { value in
+                        viewModel.updatePanelOpacity(value)
+                    }
+
+                    sliderRow(
+                        title: "Surface Opacity",
+                        value: viewModel.cardOpacity,
+                        range: 0.25 ... 0.9
+                    ) { value in
+                        viewModel.updateCardOpacity(value)
+                    }
+                }
+                .padding(12)
+                .glassPanel(cornerRadius: 16, opacity: viewModel.cardOpacity * 0.78)
+
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Refresh")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundColor(.textPrimary)
+
+                    HStack(spacing: 8) {
+                        ForEach(AppViewModel.RefreshInterval.allCases) { interval in
+                            Button {
+                                viewModel.updateRefreshInterval(interval)
+                            } label: {
+                                Text(interval.label)
+                                    .font(.system(size: 12, weight: viewModel.refreshInterval == interval ? .semibold : .regular))
+                                    .foregroundColor(viewModel.refreshInterval == interval ? .textPrimary : .textSecondary)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 7)
+                                    .frame(maxWidth: .infinity)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                            .fill(viewModel.refreshInterval == interval ? Color.white.opacity(0.16) : Color.white.opacity(0.06))
+                                    )
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                            .stroke(viewModel.refreshInterval == interval ? Color.white.opacity(0.26) : Color.glassStroke, lineWidth: 1)
+                                    )
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+
+                    Text("Applies to popover refresh and background live-score checks.")
                         .font(.system(size: 11))
                         .foregroundColor(.textSecondary)
+                }
+                .padding(12)
+                .glassPanel(cornerRadius: 16, opacity: viewModel.cardOpacity * 0.78)
+
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Menu Bar")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundColor(.textPrimary)
+
+                    VStack(spacing: 8) {
+                        ForEach(AppViewModel.TrayDisplayMode.allCases) { mode in
+                            optionRow(
+                                title: mode.title,
+                                subtitle: mode.subtitle,
+                                isSelected: viewModel.trayDisplayMode == mode
+                            ) {
+                                viewModel.updateTrayDisplayMode(mode)
+                            }
+                        }
+                    }
+                }
+                .padding(12)
+                .glassPanel(cornerRadius: 16, opacity: viewModel.cardOpacity * 0.78)
+
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Favorite Teams")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundColor(.textPrimary)
+
+                    if viewModel.favoriteTeams.isEmpty {
+                        Text("Add favorites from any match detail sheet. Those matches move to the top of each day.")
+                            .font(.system(size: 11))
+                            .foregroundColor(.textSecondary)
+                    } else {
+                        ForEach(viewModel.favoriteTeams) { team in
+                            HStack(spacing: 10) {
+                                RemoteFlagView(url: team.flagURL, size: 22)
+
+                                Text(team.name)
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(.textPrimary)
+
+                                Spacer()
+
+                                Button("Remove") {
+                                    viewModel.toggleFavorite(teamID: team.id)
+                                }
+                                .buttonStyle(.plain)
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundColor(.textSecondary)
+                            }
+                            .padding(.vertical, 4)
+                        }
+                    }
+                }
+                .padding(12)
+                .glassPanel(cornerRadius: 16, opacity: viewModel.cardOpacity * 0.78)
+
+                VStack(spacing: 8) {
+                    optionRow(
+                        title: "Auto",
+                        subtitle: "No pinned live match",
+                        isSelected: viewModel.pinnedLiveMatchID == nil
+                    ) {
+                        viewModel.pinLiveMatch(nil)
+                    }
+
+                    if viewModel.liveMatches.isEmpty {
+                        Text("No live matches right now.")
+                            .font(.system(size: 12))
+                            .foregroundColor(.textSecondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(12)
+                            .background(Color.bgCard)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    } else {
+                        ForEach(viewModel.liveMatches) { match in
+                            optionRow(
+                                title: match.trayScoreline,
+                                subtitle: "\(match.homeTeam) vs \(match.awayTeam)",
+                                isSelected: viewModel.pinnedLiveMatchID == match.id
+                            ) {
+                                viewModel.pinLiveMatch(match.id)
+                            }
+                        }
+                    }
                 }
 
                 Spacer()
-
-                Button("Done") {
-                    viewModel.dismissActiveSheet()
-                }
-                .buttonStyle(.plain)
-                .foregroundColor(.textPrimary)
             }
-
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Appearance")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(.textPrimary)
-
-                sliderRow(
-                    title: "Panel Transparency",
-                    value: viewModel.panelOpacity,
-                    range: 0.35 ... 0.9
-                ) { value in
-                    viewModel.updatePanelOpacity(value)
-                }
-
-                sliderRow(
-                    title: "Surface Opacity",
-                    value: viewModel.cardOpacity,
-                    range: 0.25 ... 0.9
-                ) { value in
-                    viewModel.updateCardOpacity(value)
-                }
-            }
-            .padding(12)
-            .glassPanel(cornerRadius: 16, opacity: viewModel.cardOpacity * 0.78)
-
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Refresh")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(.textPrimary)
-
-                HStack(spacing: 8) {
-                    ForEach(AppViewModel.RefreshInterval.allCases) { interval in
-                        Button {
-                            viewModel.updateRefreshInterval(interval)
-                        } label: {
-                            Text(interval.label)
-                                .font(.system(size: 12, weight: viewModel.refreshInterval == interval ? .semibold : .regular))
-                                .foregroundColor(viewModel.refreshInterval == interval ? .textPrimary : .textSecondary)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 7)
-                                .frame(maxWidth: .infinity)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                        .fill(viewModel.refreshInterval == interval ? Color.white.opacity(0.16) : Color.white.opacity(0.06))
-                                )
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                        .stroke(viewModel.refreshInterval == interval ? Color.white.opacity(0.26) : Color.glassStroke, lineWidth: 1)
-                                )
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-
-                Text("Applies to popover refresh and background live-score checks.")
-                    .font(.system(size: 11))
-                    .foregroundColor(.textSecondary)
-            }
-            .padding(12)
-            .glassPanel(cornerRadius: 16, opacity: viewModel.cardOpacity * 0.78)
-
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Menu Bar")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(.textPrimary)
-
-                VStack(spacing: 8) {
-                    ForEach(AppViewModel.TrayDisplayMode.allCases) { mode in
-                        optionRow(
-                            title: mode.title,
-                            subtitle: mode.subtitle,
-                            isSelected: viewModel.trayDisplayMode == mode
-                        ) {
-                            viewModel.updateTrayDisplayMode(mode)
-                        }
-                    }
-                }
-            }
-            .padding(12)
-            .glassPanel(cornerRadius: 16, opacity: viewModel.cardOpacity * 0.78)
-
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Favorite Teams")
-                    .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(.textPrimary)
-
-                if viewModel.favoriteTeams.isEmpty {
-                    Text("Add favorites from any match detail sheet. Those matches move to the top of each day.")
-                        .font(.system(size: 11))
-                        .foregroundColor(.textSecondary)
-                } else {
-                    ForEach(viewModel.favoriteTeams) { team in
-                        HStack(spacing: 10) {
-                            RemoteFlagView(url: team.flagURL, size: 22)
-
-                            Text(team.name)
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundColor(.textPrimary)
-
-                            Spacer()
-
-                            Button("Remove") {
-                                viewModel.toggleFavorite(teamID: team.id)
-                            }
-                            .buttonStyle(.plain)
-                            .font(.system(size: 11, weight: .semibold))
-                            .foregroundColor(.textSecondary)
-                        }
-                        .padding(.vertical, 4)
-                    }
-                }
-            }
-            .padding(12)
-            .glassPanel(cornerRadius: 16, opacity: viewModel.cardOpacity * 0.78)
-
-            VStack(spacing: 8) {
-                optionRow(
-                    title: "Auto",
-                    subtitle: "No pinned live match",
-                    isSelected: viewModel.pinnedLiveMatchID == nil
-                ) {
-                    viewModel.pinLiveMatch(nil)
-                }
-
-                if viewModel.liveMatches.isEmpty {
-                    Text("No live matches right now.")
-                        .font(.system(size: 12))
-                        .foregroundColor(.textSecondary)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(12)
-                        .background(Color.bgCard)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                } else {
-                    ForEach(viewModel.liveMatches) { match in
-                        optionRow(
-                            title: match.trayScoreline,
-                            subtitle: "\(match.homeTeam) vs \(match.awayTeam)",
-                            isSelected: viewModel.pinnedLiveMatchID == match.id
-                        ) {
-                            viewModel.pinLiveMatch(match.id)
-                        }
-                    }
-                }
-            }
-
-            Spacer()
-        }
         }
         .padding(16)
         .frame(width: 360, height: 620)

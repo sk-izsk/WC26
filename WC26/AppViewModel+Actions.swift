@@ -15,7 +15,11 @@ extension AppViewModel {
 
     func pinLiveMatch(_ matchID: String?) {
         pinnedLiveMatchID = matchID
-        UserDefaults.standard.set(matchID, forKey: "PinnedLiveMatchID")
+        UserDefaults.standard.set(matchID, forKey: DefaultsKey.pinnedLiveMatchID)
+
+        if matchID != nil, notificationPreferences.isEnabled {
+            requestNotificationPermissionIfNeeded()
+        }
     }
 
     func updatePanelOpacity(_ value: Double) {
@@ -114,15 +118,21 @@ extension AppViewModel {
     }
 
     func toggleFavorite(teamID: String) {
+        let isAddingFavorite = !favoriteTeamIDs.contains(teamID)
+
         if favoriteTeamIDs.contains(teamID) {
             favoriteTeamIDs.remove(teamID)
         } else {
             favoriteTeamIDs.insert(teamID)
         }
 
-        UserDefaults.standard.set(Array(favoriteTeamIDs).sorted(), forKey: "FavoriteTeamIDs")
+        UserDefaults.standard.set(Array(favoriteTeamIDs).sorted(), forKey: DefaultsKey.favoriteTeamIDs)
         rebuildGlobalCaches()
         applySelectedDateFilter()
+
+        if isAddingFavorite, notificationPreferences.isEnabled {
+            requestNotificationPermissionIfNeeded()
+        }
     }
 
     func isFavorite(teamID: String) -> Bool {

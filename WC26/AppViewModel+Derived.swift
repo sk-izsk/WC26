@@ -59,6 +59,29 @@ extension AppViewModel {
         favoriteTeamsCache
     }
 
+    var activeNotificationMatches: [FollowedMatchSummary] {
+        allMatches
+            .filter { $0.status != .finished }
+            .compactMap { match -> (match: Match, summary: FollowedMatchSummary)? in
+                let eligibility = notificationEligibility(for: match)
+                guard eligibility.isEnabled, let sourceLabel = eligibility.sourceLabel else {
+                    return nil
+                }
+
+                return (
+                    match,
+                    FollowedMatchSummary(
+                        id: match.id,
+                        title: "\(match.homeTeam) vs \(match.awayTeam)",
+                        subtitle: match.scorelineDisplay + " · " + match.compactStatusLabel,
+                        sourceLabel: sourceLabel
+                    )
+                )
+            }
+            .sorted { prioritizedMatchSort($0.match, $1.match) }
+            .map(\.summary)
+    }
+
     var dateStripKeys: [String] {
         (-2 ... 5).map { Date.dateKey(offsetDays: $0) }
     }

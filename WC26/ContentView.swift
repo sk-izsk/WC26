@@ -99,6 +99,11 @@ struct ContentView: View {
             .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
             .allowsHitTesting(false)
         }
+        .overlay(alignment: .top) {
+            InAppNotificationBannerHost()
+                .environmentObject(viewModel)
+                .zIndex(2)
+        }
         .animation(.easeInOut(duration: 0.18), value: viewModel.activeSheet?.id)
     }
 

@@ -124,6 +124,12 @@ struct MatchDetailView: View {
             .disabled(!match.status.isLive)
             .opacity(match.status.isLive ? 1 : 0.55)
 
+            Divider()
+                .overlay(Color.glassStroke)
+
+            MatchNotificationControls(match: match)
+                .environmentObject(viewModel)
+
             Text("Favorite teams rise to the top of fixtures for each day.")
                 .font(.system(size: 11))
                 .foregroundColor(.textSecondary)
