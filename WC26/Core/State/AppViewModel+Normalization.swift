@@ -177,6 +177,20 @@ extension AppViewModel {
             return []
         }
 
+        if let regex = try? NSRegularExpression(pattern: "\"([^\"]+)\"") {
+            let range = NSRange(trimmed.startIndex..<trimmed.endIndex, in: trimmed)
+            let matches = regex.matches(in: trimmed, range: range).compactMap { match -> String? in
+                guard let scorerRange = Range(match.range(at: 1), in: trimmed) else {
+                    return nil
+                }
+                return String(trimmed[scorerRange]).trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+
+            if !matches.isEmpty {
+                return matches
+            }
+        }
+
         let sanitized = trimmed
             .replacingOccurrences(of: "{", with: "")
             .replacingOccurrences(of: "}", with: "")

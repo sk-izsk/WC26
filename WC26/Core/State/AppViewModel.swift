@@ -127,7 +127,7 @@ final class AppViewModel: ObservableObject {
     @Published var isNotificationsSectionExpanded = UserDefaults.standard.object(forKey: DefaultsKey.notificationsSectionExpanded) as? Bool ?? false
     @Published var activeBanner: InAppBannerState?
 
-    var pollingTask: Task<Void, Never>?
+    var pollingTimer: DispatchSourceTimer?
     var bannerDismissTask: Task<Void, Never>?
     var isFetching = false
     let api = APIService.shared
@@ -156,28 +156,37 @@ final class AppViewModel: ObservableObject {
     }
 
     deinit {
-        pollingTask?.cancel()
+        pollingTimer?.setEventHandler {}
+        pollingTimer?.cancel()
         bannerDismissTask?.cancel()
     }
 
     func startPolling() {
-        pollingTask?.cancel()
-        pollingTask = Task { [weak self] in
+        pollingTimer?.setEventHandler {}
+        pollingTimer?.cancel()
+
+        let timer = DispatchSource.makeTimerSource(queue: DispatchQueue.global(qos: .utility))
+        timer.schedule(
+            deadline: .now() + .seconds(refreshInterval.rawValue),
+            repeating: .seconds(refreshInterval.rawValue)
+        )
+        timer.setEventHandler { [weak self] in
             guard let self else {
                 return
             }
 
-            while !Task.isCancelled {
-                await fetchAll()
-                let interval = UInt64(refreshInterval.rawValue)
-                try? await Task.sleep(nanoseconds: interval * 1_000_000_000)
+            Task { @MainActor [weak self] in
+                await self?.fetchAll()
             }
         }
+        pollingTimer = timer
+        timer.resume()
     }
 
     func stopPolling() {
-        pollingTask?.cancel()
-        pollingTask = nil
+        pollingTimer?.setEventHandler {}
+        pollingTimer?.cancel()
+        pollingTimer = nil
     }
 
     func refresh() {

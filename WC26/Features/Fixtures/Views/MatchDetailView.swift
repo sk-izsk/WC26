@@ -18,7 +18,7 @@ struct MatchDetailView: View {
                 .padding(16)
             }
         }
-        .frame(width: 360, height: 500)
+        .frame(width: 404, height: 520)
         .background(
             ZStack {
                 VisualEffectBlur(material: .hudWindow, blendingMode: .behindWindow)
@@ -57,20 +57,23 @@ struct MatchDetailView: View {
 
     private var scoreboardCard: some View {
         VStack(spacing: 12) {
-            HStack {
+            HStack(alignment: .firstTextBaseline) {
                 StatusBadgeView(match: match)
                 Spacer()
                 Text(match.roundLabel)
                     .font(.system(size: 11, weight: .medium))
                     .foregroundColor(.textSecondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.85)
             }
 
-            HStack(alignment: .center, spacing: 12) {
+            HStack(alignment: .top, spacing: 10) {
                 teamBlock(summary: viewModel.teamSummary(for: match, isHomeTeam: true), teamName: match.homeTeam, scorers: match.homeScorers, isFavorite: viewModel.isFavorite(teamID: match.homeTeamID)) {
                     viewModel.showDetailsAfterClosingMatch(for: match.homeTeamID)
                 } action: {
                     viewModel.toggleFavorite(teamID: match.homeTeamID)
                 }
+                .frame(maxWidth: .infinity)
 
                 VStack(spacing: 8) {
                     Text(match.scorelineDisplay)
@@ -82,13 +85,14 @@ struct MatchDetailView: View {
                         .foregroundColor(.textSecondary)
                         .multilineTextAlignment(.center)
                 }
-                .frame(minWidth: 88)
+                .frame(width: 76)
 
                 teamBlock(summary: viewModel.teamSummary(for: match, isHomeTeam: false), teamName: match.awayTeam, scorers: match.awayScorers, isFavorite: viewModel.isFavorite(teamID: match.awayTeamID)) {
                     viewModel.showDetailsAfterClosingMatch(for: match.awayTeamID)
                 } action: {
                     viewModel.toggleFavorite(teamID: match.awayTeamID)
                 }
+                .frame(maxWidth: .infinity)
             }
         }
         .padding(14)
@@ -175,7 +179,7 @@ struct MatchDetailView: View {
             }
             .buttonStyle(.plain)
         }
-            .frame(maxWidth: .infinity, alignment: .top)
+        .frame(maxWidth: .infinity, alignment: .top)
     }
 
     private func detailRow(title: String, value: String) -> some View {
@@ -240,6 +244,7 @@ private struct TeamEntryCard: View {
                     .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(.textPrimary)
                     .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
 
                 if scorers.isEmpty {
                     Text("No scorer data")
@@ -247,11 +252,15 @@ private struct TeamEntryCard: View {
                         .foregroundColor(.textSecondary)
                         .multilineTextAlignment(.center)
                 } else {
-                    Text(scorers.joined(separator: ", "))
-                        .font(.system(size: 10))
-                        .foregroundColor(.textSecondary)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(3)
+                    VStack(spacing: 2) {
+                        ForEach(Array(scorers.enumerated()), id: \.offset) { _, scorer in
+                            Text(scorer)
+                                .font(.system(size: 10))
+                                .foregroundColor(.textSecondary)
+                                .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
                 }
 
                 HStack(spacing: 4) {
@@ -262,7 +271,7 @@ private struct TeamEntryCard: View {
                 }
                 .foregroundColor(isHovered ? .textPrimary : .textSecondary)
             }
-            .frame(maxWidth: .infinity, minHeight: 150, alignment: .top)
+            .frame(maxWidth: .infinity, minHeight: 172, alignment: .top)
             .padding(.horizontal, 8)
             .padding(.vertical, 12)
             .background(
