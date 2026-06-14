@@ -28,6 +28,29 @@ struct SettingsView: View {
                 SettingsNotificationSection()
 
                 VStack(alignment: .leading, spacing: 10) {
+                    Text("General")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundColor(.textPrimary)
+
+                    toggleRow(
+                        title: "Start at Login",
+                        subtitle: "Launch WC26 automatically when you sign in.",
+                        isOn: Binding(
+                            get: { viewModel.startAtLoginEnabled },
+                            set: viewModel.updateStartAtLogin
+                        )
+                    )
+
+                    if let message = viewModel.startAtLoginStatusMessage {
+                        Text(message)
+                            .font(.system(size: 11))
+                            .foregroundColor(.textSecondary)
+                    }
+                }
+                .padding(12)
+                .glassPanel(cornerRadius: 16, opacity: viewModel.cardOpacity * 0.78)
+
+                VStack(alignment: .leading, spacing: 10) {
                     Text("Appearance")
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(.textPrimary)
@@ -227,6 +250,25 @@ struct SettingsView: View {
 
             Slider(value: Binding(get: { value }, set: onChange), in: range)
                 .tint(.white)
+        }
+    }
+
+    private func toggleRow(title: String, subtitle: String, isOn: Binding<Bool>) -> some View {
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(.textPrimary)
+                Text(subtitle)
+                    .font(.system(size: 11))
+                    .foregroundColor(.textSecondary)
+            }
+
+            Spacer()
+
+            Toggle(title, isOn: isOn)
+                .labelsHidden()
+                .toggleStyle(.switch)
         }
     }
 }

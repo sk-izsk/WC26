@@ -126,6 +126,8 @@ final class AppViewModel: ObservableObject {
     @Published var notificationPermissionState: NotificationPermissionState = .notRequested
     @Published var isNotificationsSectionExpanded = UserDefaults.standard.object(forKey: DefaultsKey.notificationsSectionExpanded) as? Bool ?? false
     @Published var activeBanner: InAppBannerState?
+    @Published var startAtLoginEnabled = false
+    @Published var startAtLoginStatusMessage: String?
 
     var pollingTimer: DispatchSourceTimer?
     var bannerDismissTask: Task<Void, Never>?
@@ -153,6 +155,7 @@ final class AppViewModel: ObservableObject {
             self?.presentInAppBanner(banner)
         }
         refreshNotificationPermissionState()
+        refreshStartAtLoginState()
     }
 
     deinit {

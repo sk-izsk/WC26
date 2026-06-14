@@ -1,6 +1,53 @@
 import Foundation
+import ServiceManagement
 
 extension AppViewModel {
+    func refreshStartAtLoginState() {
+        guard #available(macOS 13.0, *) else {
+            startAtLoginEnabled = false
+            startAtLoginStatusMessage = "Requires macOS 13 or later."
+            return
+        }
+
+        switch SMAppService.mainApp.status {
+        case .enabled:
+            startAtLoginEnabled = true
+            startAtLoginStatusMessage = nil
+        case .requiresApproval:
+            startAtLoginEnabled = true
+            startAtLoginStatusMessage = "Approve WC26 in System Settings > Login Items."
+        case .notRegistered:
+            startAtLoginEnabled = false
+            startAtLoginStatusMessage = nil
+        case .notFound:
+            startAtLoginEnabled = false
+            startAtLoginStatusMessage = "Start at Login is unavailable for this build."
+        @unknown default:
+            startAtLoginEnabled = false
+            startAtLoginStatusMessage = "Unable to read Start at Login status."
+        }
+    }
+
+    func updateStartAtLogin(_ isEnabled: Bool) {
+        guard #available(macOS 13.0, *) else {
+            startAtLoginEnabled = false
+            startAtLoginStatusMessage = "Requires macOS 13 or later."
+            return
+        }
+
+        do {
+            if isEnabled {
+                try SMAppService.mainApp.register()
+            } else {
+                try SMAppService.mainApp.unregister()
+            }
+            refreshStartAtLoginState()
+        } catch {
+            refreshStartAtLoginState()
+            startAtLoginStatusMessage = error.localizedDescription
+        }
+    }
+
     func pinLiveMatch(_ matchID: String?) {
         pinnedLiveMatchID = matchID
         UserDefaults.standard.set(matchID, forKey: DefaultsKey.pinnedLiveMatchID)
