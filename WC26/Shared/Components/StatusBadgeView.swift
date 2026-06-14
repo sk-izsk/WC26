@@ -18,10 +18,6 @@ struct StatusBadgeView: View {
                             dotOpacity = 0.2
                         }
                     }
-
-                Text(match.minute.map { "LIVE \($0)'" } ?? "LIVE")
-                    .font(.system(size: 11, weight: .semibold))
-                    .foregroundColor(.accentLive)
             }
         case .halfTime:
             Text("HT")

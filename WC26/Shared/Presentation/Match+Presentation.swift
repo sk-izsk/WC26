@@ -10,7 +10,9 @@ extension Match {
         case .scheduled:
             kickoffLabel
         case .inPlay:
-            if let minute {
+            if let liveClock {
+                liveClock
+            } else if let minute {
                 "\(minute)'"
             } else {
                 "LIVE"
@@ -50,6 +52,9 @@ extension Match {
         case .finished:
             return "Full-time"
         case .inPlay:
+            if let liveClock {
+                return "\(liveClock) elapsed"
+            }
             if let minute {
                 return "\(minute)' elapsed"
             }

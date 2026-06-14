@@ -7,6 +7,7 @@ extension AppViewModel {
         let stadium = stadiumsByID[apiGame.stadiumID]
         let matchStatus = api.apiStatus(for: apiGame)
         let kickoffDate = parseKickoffDate(for: apiGame, stadium: stadium)
+        let liveClock = parseLiveClock(apiGame.timeElapsed, status: matchStatus)
         let minute = parseMinute(apiGame.timeElapsed, status: matchStatus)
 
         let homeName = resolvedTeamName(
@@ -47,6 +48,7 @@ extension AppViewModel {
             status: matchStatus,
             homeScore: parsedScore(apiGame.homeScore, status: matchStatus),
             awayScore: parsedScore(apiGame.awayScore, status: matchStatus),
+            liveClock: liveClock,
             minute: minute,
             homeScorers: scorerList(from: apiGame.homeScorers),
             awayScorers: scorerList(from: apiGame.awayScorers)
@@ -156,6 +158,33 @@ extension AppViewModel {
 
         let digits = rawValue.filter(\.isNumber)
         return Int(digits)
+    }
+
+    func parseLiveClock(_ rawValue: String, status: MatchStatus) -> String? {
+        guard status == .inPlay else {
+            return nil
+        }
+
+        let trimmed = rawValue.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            return nil
+        }
+
+        if let regex = try? NSRegularExpression(pattern: "(\\d+)(?:\\D*\\+\\D*(\\d+))?"),
+           let match = regex.firstMatch(
+               in: trimmed,
+               range: NSRange(trimmed.startIndex..<trimmed.endIndex, in: trimmed)
+           ),
+           let baseRange = Range(match.range(at: 1), in: trimmed) {
+            let base = String(trimmed[baseRange])
+            if let extraRange = Range(match.range(at: 2), in: trimmed) {
+                let extra = String(trimmed[extraRange])
+                return "\(base)'+\(extra)'"
+            }
+            return "\(base)'"
+        }
+
+        return nil
     }
 
     func resolvedTeamName(explicitName: String?, team: APITeam?, placeholder: String?) -> String {

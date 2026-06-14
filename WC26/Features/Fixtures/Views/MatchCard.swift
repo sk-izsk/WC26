@@ -35,12 +35,19 @@ struct MatchCard: View {
                         }
 
                         VStack(alignment: .trailing, spacing: 3) {
-                            Text(match.compactStatusLabel)
-                                .font(.system(size: 11, weight: .semibold))
-                                .foregroundColor(isLive ? .accentLive : .textSecondary)
+                            if isLive {
+                                Text("LIVE \(match.compactStatusLabel)")
+                                    .font(.system(size: 11, weight: .semibold))
+                                    .foregroundColor(.accentLive)
+                            }
                             Text(match.kickoffFullLabel)
                                 .font(.system(size: 10))
                                 .foregroundColor(.textSecondary)
+                            if !isLive {
+                                Text(match.compactStatusLabel)
+                                    .font(.system(size: 11, weight: .semibold))
+                                    .foregroundColor(.textSecondary)
+                            }
                         }
                     }
                 }

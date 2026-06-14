@@ -104,7 +104,7 @@ extension AppViewModel {
 
             return match.localDateKey == selectedDate
         }
-        let sortedMatches = filtered.sorted(by: prioritizedMatchSort)
+        let sortedMatches = filtered.sorted(by: fixtureListSort)
 
         if matches != sortedMatches {
             matches = sortedMatches
@@ -160,6 +160,20 @@ extension AppViewModel {
         }
     }
 
+    func fixtureListSort(_ lhs: Match, _ rhs: Match) -> Bool {
+        if lhs.status.isLive != rhs.status.isLive {
+            return lhs.status.isLive && !rhs.status.isLive
+        }
+
+        let lhsFavorite = lhs.involvesFavoriteTeam(favoriteTeamIDs)
+        let rhsFavorite = rhs.involvesFavoriteTeam(favoriteTeamIDs)
+        if lhsFavorite != rhsFavorite {
+            return lhsFavorite && !rhsFavorite
+        }
+
+        return sortMatchesByKickoff(lhs, rhs)
+    }
+
     func teamDetailState(for teamID: String) -> TeamDetailState {
         let summary = favoriteTeamSummary(for: teamID)
         let standingGroup = standings.first { group in
@@ -205,7 +219,7 @@ extension AppViewModel {
     private func groupedMatches(_ matches: [Match]) -> [(dateKey: String, matches: [Match])] {
         Dictionary(grouping: matches, by: \.localDateKey)
             .map { key, value in
-                (dateKey: key, matches: value.sorted(by: sortMatchesByKickoff))
+                (dateKey: key, matches: value.sorted(by: fixtureListSort))
             }
             .sorted { $0.dateKey < $1.dateKey }
     }

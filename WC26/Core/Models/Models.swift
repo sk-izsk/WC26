@@ -279,6 +279,7 @@ struct Match: Identifiable, Equatable {
     let status: MatchStatus
     let homeScore: Int?
     let awayScore: Int?
+    let liveClock: String?
     let minute: Int?
     let homeScorers: [String]
     let awayScorers: [String]
