@@ -6,3 +6,4 @@ skills-lock.json
 xcuserdata/
 *.xccheckout
 *.xcscmblueprint
+dist/
