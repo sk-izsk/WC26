@@ -7,3 +7,5 @@ xcuserdata/
 *.xccheckout
 *.xcscmblueprint
 dist/
+.DS_store
+.vscode/
