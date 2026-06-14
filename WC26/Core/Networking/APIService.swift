@@ -54,11 +54,6 @@ final class APIService {
         return try decoder.decode(APIStadiumsResponse.self, from: data).stadiums
     }
 
-    func fetchLiveMatches() async throws -> [APIGame] {
-        let matches = try await fetchMatches()
-        return matches.filter { apiStatus(for: $0).isLive }
-    }
-
     func apiStatus(for game: APIGame) -> MatchStatus {
         if game.finished.uppercased() == "TRUE" {
             return .finished

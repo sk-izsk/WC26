@@ -1,18 +1,6 @@
 import Foundation
 
 extension AppViewModel {
-    func normalizeLiveMatch(_ apiGame: APIGame) -> Match {
-        normalizeMatch(apiGame)
-    }
-
-    func preferredLiveMatch(from apiMatches: [APIGame]) -> Match? {
-        let liveMatches = apiMatches
-            .map(normalizeMatch)
-            .filter { $0.status.isLive }
-
-        return trayMatch(from: liveMatches)
-    }
-
     func pinLiveMatch(_ matchID: String?) {
         pinnedLiveMatchID = matchID
         UserDefaults.standard.set(matchID, forKey: DefaultsKey.pinnedLiveMatchID)
@@ -24,12 +12,12 @@ extension AppViewModel {
 
     func updatePanelOpacity(_ value: Double) {
         panelOpacity = value
-        UserDefaults.standard.set(value, forKey: "PanelOpacity")
+        UserDefaults.standard.set(value, forKey: DefaultsKey.panelOpacity)
     }
 
     func updateCardOpacity(_ value: Double) {
         cardOpacity = value
-        UserDefaults.standard.set(value, forKey: "CardOpacity")
+        UserDefaults.standard.set(value, forKey: DefaultsKey.cardOpacity)
     }
 
     func updateRefreshInterval(_ interval: RefreshInterval) {
@@ -38,13 +26,13 @@ extension AppViewModel {
         }
 
         refreshInterval = interval
-        UserDefaults.standard.set(interval.rawValue, forKey: "RefreshIntervalSeconds")
+        UserDefaults.standard.set(interval.rawValue, forKey: DefaultsKey.refreshIntervalSeconds)
         startPolling()
     }
 
     func updateTrayDisplayMode(_ mode: TrayDisplayMode) {
         trayDisplayMode = mode
-        UserDefaults.standard.set(mode.rawValue, forKey: "TrayDisplayMode")
+        UserDefaults.standard.set(mode.rawValue, forKey: DefaultsKey.trayDisplayMode)
     }
 
     func showDetails(for match: Match) {
@@ -177,12 +165,12 @@ extension AppViewModel {
         selectedTeamFilterID = teamID
 
         if let teamID {
-            UserDefaults.standard.set(teamID, forKey: "SelectedTeamFilterID")
+            UserDefaults.standard.set(teamID, forKey: DefaultsKey.selectedTeamFilterID)
             if let focusMatch = preferredFixtureFocusMatch(for: teamID) {
                 selectedDate = focusMatch.localDateKey
             }
         } else {
-            UserDefaults.standard.removeObject(forKey: "SelectedTeamFilterID")
+            UserDefaults.standard.removeObject(forKey: DefaultsKey.selectedTeamFilterID)
         }
 
         activeTab = .fixtures
@@ -196,7 +184,7 @@ extension AppViewModel {
     func jumpToToday() {
         selectedDate = Date().toDateKey()
         selectedTeamFilterID = nil
-        UserDefaults.standard.removeObject(forKey: "SelectedTeamFilterID")
+        UserDefaults.standard.removeObject(forKey: DefaultsKey.selectedTeamFilterID)
         activeTab = .fixtures
         applySelectedDateFilter()
         refresh()
